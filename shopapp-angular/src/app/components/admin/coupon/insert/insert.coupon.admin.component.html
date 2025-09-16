@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Thêm Coupon</h4>
+      <button class="btn btn-secondary btn-sm" (click)="backcoupon()">
+        Quay lại
+      </button>
+    </div>
+    <div class="card-body">
+      <!-- Form coupon -->
+      <form>
+        <!-- Mã coupon -->
+        <div class="mb-3">
+          <label class="form-label">Mã Coupon</label>
+          <input type="text" class="form-control" [(ngModel)]="coupon.code" name="code"
+            placeholder="Nhập mã coupon..." />
+        </div>
+
+        <!-- Trạng thái -->
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="activeCheck" [(ngModel)]="coupon.active" name="active" />
+          <label class="form-check-label" for="activeCheck">
+            Kích hoạt
+          </label>
+        </div>
+
+        <!-- Điều kiện -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Điều kiện</h5>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="addCondition()">
+            Thêm điều kiện
+          </button>
+        </div>
+
+        <!-- Danh sách điều kiện -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Attribute</th>
+                <th>Operator</th>
+                <th>Value</th>
+                <th>% Giảm</th>
+                <th class="text-center">Xóa</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (cond of conditions; track cond; let i = $index) {
+              <tr>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="cond.attribute" name="attribute{{ i }}"
+                    placeholder="vd: minimum_amount" />
+                </td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="cond.operator" name="operator{{ i }}"
+                    placeholder=">, <, =, BETWEEN..." />
+                </td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="cond.value" name="value{{ i }}"
+                    placeholder="vd: 100000" />
+                </td>
+                <td>
+                  <input type="number" class="form-control" [(ngModel)]="cond.discountAmount"
+                    name="discountAmount{{ i }}" placeholder="%" />
+                </td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeCondition(i)">
+                    ✖
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Nút lưu -->
+        <div class="mt-3 text-end">
+          <button type="button" class="btn btn-success" (click)="saveCoupon()">
+            💾 Lưu Coupon
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.pagination {
+  margin-top: 10px;
+}
+
+.pagination button {
+  margin: 0 3px;
+  padding: 5px 10px;
+}
+
+.pagination button.active {
+  background: #007bff;
+  color: white;
+}
+.icon{
+  margin-right: 5px;
+}

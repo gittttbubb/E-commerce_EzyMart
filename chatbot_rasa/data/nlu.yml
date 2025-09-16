@@ -1,0 +1,38 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - Xin chào
+    - Chào bạn
+    - Hello
+    - Hi
+- intent: goodbye
+  examples: |
+    - Tạm biệt
+    - Bye
+    - Hẹn gặp lại
+- intent: check_order
+  examples: |
+    - Kiểm tra đơn hàng của tôi
+    - Tra cứu đơn hàng
+    - Đơn hàng của tôi đâu
+    - Tôi muốn xem đơn hàng
+- intent: ask_products
+  examples: |
+    - Tư vấn sản phẩm
+    - Cho tôi xem sản phẩm mới
+    - Gợi ý vài sản phẩm
+    - Có sản phẩm nào tốt không
+- intent: ask_product_detail
+  examples: |
+    - Cho tôi xem chi tiết sản phẩm 6
+    - Chi tiết sản phẩm id 10
+    - Xem sản phẩm 3
+- intent: ask_policy
+  examples: |
+    - Chính sách đổi trả thế nào
+    - Chính sách bảo hành
+    - Hỏi về chính sách cửa hàng
+- intent: fallback
+  examples: |
+    - ...

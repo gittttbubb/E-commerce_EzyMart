@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  rasa:
+    image: rasa/rasa:3.6.20
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./config.yml:/app/config.yml
+      - ./domain.yml:/app/domain.yml
+      - ./endpoints.yml:/app/endpoints.yml
+      - ./credentials.yml:/app/credentials.yml
+    command: run --enable-api --cors "*" --debug
+    depends_on:
+      - action_server
+
+  action_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./actions:/app/actions
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - API_BASE=http://host.docker.internal:8088/api/v1
+
+  train:
+    image: rasa/rasa:3.6.20
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./config.yml:/app/config.yml
+      - ./domain.yml:/app/domain.yml
+      - ./endpoints.yml:/app/endpoints.yml
+      - ./credentials.yml:/app/credentials.yml
+    working_dir: /app
+    command: train

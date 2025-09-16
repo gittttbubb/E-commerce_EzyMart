@@ -1,0 +1,106 @@
+<app-header></app-header>
+<div class="container">
+    <div class="intro-section">
+        <h1>Đây là trang chi tiết sản phẩm</h1>
+        <p>Sử dụng Bootstrap</p>
+    </div>    
+    <div class="row">
+      <div class="col-md-6">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @for(image of product?.product_images;
+                track image.image_url;let i = $index;) {
+              <div 
+                 class="carousel-item" 
+                  [ngClass]="{'active': i === currentImageIndex}">
+                <div class="square-image">
+                  <img [src]="image.image_url" class="product-image" alt="Product Image">
+                </div>
+              </div>  
+            }            
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" 
+                  data-bs-slide="prev" (click)="previousImage()">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" 
+                  data-bs-slide="next" (click)="nextImage()">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="row">
+          <div class="thumbnail-container">
+            @for(image of product?.product_images; 
+                 track image.image_url; let i = $index) {
+                  <div 
+                    class="thumbnail-item" 
+                    [ngClass]="{'active': i === currentImageIndex}"
+                    (click)="thumbnailClick(i)">
+                  <img [src]="image.image_url" class="thumbnail-image" alt="Thumbnail Image">
+                </div>
+            }
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="product-details">
+          <h2>{{ product?.name }}</h2>
+          <p>{{ product?.description }}</p>
+          <p>Giá: {{ product?.price | currency:'VND':'symbol':'1.0-0':'vi' }}</p>
+          <p>Tổng tiền: {{ getTotalPrice() | currency:'VND':'symbol':'1.0-0':'vi' }}</p>
+          <div class="product-actions">
+            <button class="btn btn-primary" (click)="addToCart()">Thêm vào giỏ hàng</button>
+            <button class="btn btn-success" (click)="buyNow()">Mua ngay</button>
+          </div>
+          <div class="product-quantity">
+            <div class="border-wrapper">
+              <button (click)="decreaseQuantity()">-</button>
+              <input type="text" [value]="quantity">
+              <button (click)="increaseQuantity()">+</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>    
+
+    <!-- Comment -->
+  <div class="comments-section mt-4">
+    <h4>Bình luận</h4>
+
+    <!-- Form thêm bình luận -->
+    @if (currentUser) {
+      <div class="mb-3">
+        <textarea [(ngModel)]="newComment" class="form-control" rows="3" placeholder="Viết bình luận..."></textarea>
+        <button class="btn btn-primary mt-2" (click)="addComment()">Gửi</button>
+      </div>
+    } @else {
+      <p>Vui lòng đăng nhập để bình luận.</p>
+    }
+
+    <!-- Danh sách bình luận -->
+    @for (c of comments; track c.id) {
+      <div class="border rounded p-2 mb-2">
+        @if (editingCommentId === c.id) {
+          <textarea [(ngModel)]="editingContent" class="form-control" rows="2"></textarea>
+          <button class="btn btn-success btn-sm mt-2 me-2" (click)="saveEdit(c)">Lưu</button>
+          <button class="btn btn-secondary btn-sm mt-2" (click)="cancelEdit()">Hủy</button>
+        } @else {
+          <p>{{ c.content }}</p>
+          <small class="text-muted">Bởi user {{ c.user.fullname }}</small>
+          @if (isCommentOwner(c)) {
+            <div>
+              <button class="btn btn-link btn-sm" (click)="startEdit(c)">Sửa</button>
+              <button class="btn btn-link text-danger btn-sm" (click)="deleteComment(c.id)">Xóa</button>
+            </div>
+          }
+        }
+      </div>
+    }
+  </div>
+
+
+</div>
+<app-footer></app-footer>

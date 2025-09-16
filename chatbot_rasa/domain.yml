@@ -1,0 +1,35 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - check_order
+  - ask_products
+  - ask_product_detail
+  - ask_policy
+  - fallback
+
+responses:
+  utter_greet:
+    - text: "Xin chào! Tôi có thể giúp gì cho bạn?"
+  utter_goodbye:
+    - text: "Cảm ơn bạn, chúc bạn một ngày tốt lành!"
+  utter_ask_policy:
+    - text: "Chính sách cửa hàng: đổi trả trong 7 ngày, bảo hành 12 tháng (tùy sản phẩm). Bạn cần mình giải thích chi tiết phần nào?"
+  utter_no_orders:
+    - text: "Bạn hiện chưa có đơn hàng nào."
+  utter_error_order:
+    - text: "Xin lỗi, tôi không lấy được thông tin đơn hàng. Vui lòng thử lại sau."
+  utter_no_products:
+    - text: "Hiện chưa có sản phẩm phù hợp."
+  utter_ask_more:
+    - text: "Bạn muốn biết thêm gì nữa?"
+
+actions:
+  - action_check_order
+  - action_ask_products
+  - action_product_detail
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,34 @@
+<!-- Nút tròn bật/tắt -->
+<div class="chat-toggle" (click)="toggleChat()">
+  💬
+</div>
+
+<!-- Hộp chat -->
+<div class="chat-widget" [@chatAnimation]="isOpen ? 'visible' : 'hidden'">
+  <div class="chat-header">
+    🤖 Chatbot
+    <button class="close-btn" (click)="toggleChat()">✖</button>
+  </div>
+
+  <div class="chat-box" #chatBox>
+    @for (msg of messages; track msg) {
+      <div class="message" [ngClass]="msg.sender"
+           @messageAnim [@messageAnim]="{ value: '', params: { offset: msg.sender === 'user' ? '30px' : '-30px' } }">
+        <div class="bubble">{{ msg.text }}</div>
+      </div>
+    }
+
+    @if (isTyping) {
+      <div class="message bot" @messageAnim>
+        <div class="bubble typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="chat-input">
+    <input [(ngModel)]="userInput" placeholder="Nhập tin nhắn..." (keyup.enter)="sendMessage()">
+    <button (click)="sendMessage()">➤</button>
+  </div>
+</div>

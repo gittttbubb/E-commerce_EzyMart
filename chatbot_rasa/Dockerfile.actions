@@ -1,0 +1,20 @@
+FROM rasa/rasa-sdk:3.6.2
+
+WORKDIR /app
+
+# copy requirements vào container
+COPY requirements.txt .
+
+# chạy bằng root để có quyền cài packages
+USER root
+
+# cài dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# copy toàn bộ code actions vào
+COPY . .
+
+# sau khi cài xong có thể chạy lại bằng user non-root (tuỳ chọn)
+USER 1001
+
+CMD ["start", "--actions", "actions"]

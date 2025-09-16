@@ -1,0 +1,96 @@
+<!-- <div class="coupon-list">
+  <h2>Danh sách Coupon</h2>
+
+  
+  <div class="toolbar">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Tìm mã coupon..." />
+    <button (click)="searchCoupons()">Tìm</button>
+    <button class="add-btn" (click)="addCoupon()">+ Thêm Coupon</button>
+  </div>
+
+  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Mã</th>
+        <th>Kích hoạt</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{ coupon.id }}</td>
+        <td>{{ coupon.code }}</td>
+        <td>{{ coupon.active ? '✔' : '✘' }}</td>
+        <td>
+          <button (click)="viewDetail(coupon.id!)">Xem chi tiết</button>
+          <button (click)="deleteCoupon(coupon.id!)">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">&laquo; Trước</button>
+
+    <ng-container *ngFor="let p of [].constructor(totalPages); let i = index">
+      <button (click)="goToPage(i)" [class.active]="i === currentPage">{{ i + 1 }}</button>
+    </ng-container>
+
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages - 1">Sau &raquo;</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div> -->
+
+<div class="container">
+  <h1>Coupon Admin</h1>
+  <div class="row">
+      <div class="row mb-3">
+    <div class="col-md-8">
+      <input type="text" class="form-control search-input" [(ngModel)]="searchTerm" placeholder="Tìm mã coupon..." />
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="searchCoupons()">Tìm kiếm</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 ">
+      <button class="btn btn-success" (click)="addCoupon()">Thêm Coupon</button>
+    </div>
+  </div>
+  </div>
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Active</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(coupon of coupons; track coupon.id){
+      <tr>
+        <td>{{ coupon.id }}</td>
+        <td>{{ coupon.code }}</td>
+        <td>{{ coupon.active ? '✔' : '✘' }}</td>
+        <td>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary" (click)="viewDetail(coupon.id!)">
+              Update
+            </button>
+            <button class="btn btn-danger" (click)="deleteCoupon(coupon.id!)">Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+      } @empty {
+      <h2>No coupon found</h2>
+      }
+
+    </tbody>
+  </table>
+</div>

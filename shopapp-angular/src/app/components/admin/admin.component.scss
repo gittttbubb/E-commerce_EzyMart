@@ -1,0 +1,92 @@
+// .container-fluid {
+//     background-color: white;
+//     padding-left: 0 !important; /* Remove left padding */
+//     padding-right: 0 !important; /* Remove right padding */
+// }
+// .header {
+//     background-color: #333;
+//     /* Header background color */
+//     color: white;
+//     /* Text color */
+//     padding: 10px;
+//     /* Add padding to the header */
+//     text-align: center;
+//     /* Center-align text in the header */
+
+// }
+// .header-title{
+//     font-size: 24px;
+// }
+// #sidebar {
+//     background-color: #007bff !important; /* Primary color */
+//     color: white; /* Text color */
+//     height: 100vh;
+//     overflow-y: auto; /* Add scrollbars if content overflows */
+// }
+// /* Custom CSS for sidebar links */
+// #sidebar a {
+//     color: white; /* Text color for links */
+//     border-top: 1px solid rgba(255, 255, 255, 0.2); /* Add a border line at the top of each link */
+//     padding: 10px 15px; /* Add padding to links for spacing */
+// }
+// /* Custom CSS for active link */
+// #sidebar a.active {
+//     font-weight: bold; /* Highlight active link */
+//     background-color: #0056b3;
+// }
+// /* Change background color on hover */
+// #sidebar a:hover {
+//     background-color: #0056b3; /* Change the background color on hover */
+// }
+// .icon {
+//     padding: 5px;
+// }
+
+
+/* Header */
+header.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+#sidebar {
+  background: #f8f9fa;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+#sidebar .nav-link {
+  color: #333;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#sidebar .nav-link i {
+  font-size: 1.1rem;
+}
+
+#sidebar .nav-link:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+}
+
+#sidebar .nav-link.active {
+  background-color: #0d6efd;
+  color: #fff !important;
+}
+
+/* Logout button hover */
+header .btn-outline-light:hover {
+  background-color: #fff;
+  color: #0d6efd;
+}
+
+/* Main content */
+main {
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.05);
+
+}

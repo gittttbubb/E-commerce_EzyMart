@@ -89,7 +89,7 @@
           <button class="btn btn-secondary btn-sm mt-2" (click)="cancelEdit()">Hủy</button>
         } @else {
           <p>{{ c.content }}</p>
-          <small class="text-muted">Bởi user {{ c.user.fullname }}</small>
+          <small class="text-muted">Comment by {{ c.user.fullname }}</small>
           @if (isCommentOwner(c)) {
             <div>
               <button class="btn btn-link btn-sm" (click)="startEdit(c)">Sửa</button>

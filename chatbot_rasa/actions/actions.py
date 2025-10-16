@@ -5,8 +5,6 @@ from rasa_sdk.executor import CollectingDispatcher
 import requests
 import os
 
-# API base: trong container, để truy cập host machine (BE chạy local) thường dùng host.docker.internal (Mac/Windows)
-# Nếu bạn chạy Linux và host.docker.internal không tồn tại, thay bằng IP host hoặc đặt BE chạy trên mạng nội bộ.
 API_BASE = os.environ.get("API_BASE", "http://host.docker.internal:8088/api/v1")
 
 class ActionCheckOrder(Action):
@@ -21,7 +19,7 @@ class ActionCheckOrder(Action):
         metadata = tracker.latest_message.get("metadata") or {}
         user_id = metadata.get("user_id") or tracker.sender_id
         token = metadata.get("token")
-
+    
         if not user_id or str(user_id).lower() in ["guest", "none", "null"]:
             dispatcher.utter_message(text="Bạn chưa đăng nhập. Vui lòng đăng nhập để tra cứu đơn hàng.")
             return []
@@ -111,7 +109,7 @@ class ActionProductDetail(Action):
         if not m:
             dispatcher.utter_message(text="Bạn vui lòng cho biết ID sản phẩm.")
             return []
-        pid = m.group(1)
+        pid = m.group(1)    
         try:
             url = f"{API_BASE}/products/{pid}"
             resp = requests.get(url, timeout=8)

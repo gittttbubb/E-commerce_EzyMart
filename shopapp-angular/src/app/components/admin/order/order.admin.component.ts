@@ -42,24 +42,42 @@ export class OrderAdminComponent extends BaseComponent implements OnInit{
     debugger
     this.getAllOrders(this.keyword.trim(), this.currentPage, this.itemsPerPage);
   }
+  // getAllOrders(keyword: string, page: number, limit: number) {
+  //   debugger
+  //   this.orderService.getAllOrders(keyword, page, limit).subscribe({
+  //     next: (apiResponse: ApiResponse) => {
+  //       debugger        
+  //       this.orders = apiResponse.data.orders;
+  //       this.totalPages = apiResponse.data.totalPages;
+  //       this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+  //     },
+  //     complete: () => {
+  //       debugger;
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       this.toastService.showToast({
+  //         error: error,
+  //         defaultMsg: 'Lỗi tải danh sách đơn hàng',
+  //         title: 'Lỗi Tải Dữ Liệu'
+  //       });
+  //     }
+  //   });    
+  // }
   getAllOrders(keyword: string, page: number, limit: number) {
     debugger
     this.orderService.getAllOrders(keyword, page, limit).subscribe({
-      next: (apiResponse: ApiResponse) => {
+      next: (response: any) => {
         debugger        
-        this.orders = apiResponse.data.orders;
-        this.totalPages = apiResponse.data.totalPages;
+        this.orders = response.orders;
+        this.totalPages = response.totalPages;
         this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
       },
       complete: () => {
         debugger;
       },
-      error: (error: HttpErrorResponse) => {
-        this.toastService.showToast({
-          error: error,
-          defaultMsg: 'Lỗi tải danh sách đơn hàng',
-          title: 'Lỗi Tải Dữ Liệu'
-        });
+      error: (error: any) => {
+        debugger;
+        console.error('Error fetching products:', error);
       }
     });    
   }
@@ -79,11 +97,11 @@ export class OrderAdminComponent extends BaseComponent implements OnInit{
       this.orderService.deleteOrder(id).subscribe({
         next: (response: ApiResponse) => {
           this.toastService.showToast({
-            error: null,
+            error: null, 
             defaultMsg: 'Xóa đơn hàng thành công',
             title: 'Thành Công'
           });
-          location.reload();          
+          location.reload();
         },
         error: (error: HttpErrorResponse) => {
           this.toastService.showToast({

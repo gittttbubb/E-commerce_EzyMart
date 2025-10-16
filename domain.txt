@@ -1,0 +1,7 @@
+https://bot.ezymart.qzz.io/webhooks/rest/webhook
+https://be.ezymart.qzz.io/api/v1
+https://fe.ezymart.qzz.io
+
+
+cloudflared.exe tunnel run 88387c57-7645-406f-b166-ae85ebc30bbd
+chạy cmd trong D:\DL_Cloudflare

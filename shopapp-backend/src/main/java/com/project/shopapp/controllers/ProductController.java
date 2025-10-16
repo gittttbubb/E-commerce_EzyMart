@@ -80,7 +80,6 @@ public class ProductController {
     @PostMapping(value = "uploads/{id}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    //POST http://localhost:8088/v1/api/products
     public ResponseEntity<ResponseObject> uploadImages(
             @PathVariable("id") Long productId,
             @ModelAttribute("files") List<MultipartFile> files

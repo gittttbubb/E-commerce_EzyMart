@@ -7,6 +7,7 @@ import com.project.shopapp.models.Order;
 import com.project.shopapp.models.OrderStatus;
 import com.project.shopapp.models.User;
 import com.project.shopapp.responses.ResponseObject;
+import com.project.shopapp.responses.order.OrderListResponse;
 import com.project.shopapp.responses.order.OrderResponse;
 import com.project.shopapp.services.orders.IOrderService;
 import com.project.shopapp.utils.MessageKeys;
@@ -154,8 +155,32 @@ public class OrderController {
                         .build()
         );
     }
+//    @GetMapping("/get-orders-by-keyword")
+//    public ResponseEntity<ResponseObject> getOrdersByKeyword(
+//            @RequestParam(defaultValue = "", required = false) String keyword,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int limit
+//    ) {
+//        // Tạo Pageable từ thông tin trang và giới hạn
+//        PageRequest pageRequest = PageRequest.of(
+//                page, limit,
+//                //Sort.by("createdAt").descending()
+//                Sort.by("id").ascending()
+//        );
+//        Page<OrderResponse> orderPage = orderService
+//                                        .getOrdersByKeyword(keyword, pageRequest)
+//                                        .map(OrderResponse::fromOrder);
+//        // Lấy tổng số trang
+//        int totalPages = orderPage.getTotalPages();
+//        List<OrderResponse> orderResponses = orderPage.getContent();
+//        return ResponseEntity.ok().body(ResponseObject.builder()
+//                .message("Get orders successfully")
+//                .status(HttpStatus.OK)
+//                .data(orderResponses)
+//                .build());
+//    }
     @GetMapping("/get-orders-by-keyword")
-    public ResponseEntity<ResponseObject> getOrdersByKeyword(
+    public ResponseEntity<OrderListResponse> getOrdersByKeyword(
             @RequestParam(defaultValue = "", required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
@@ -167,15 +192,15 @@ public class OrderController {
                 Sort.by("id").ascending()
         );
         Page<OrderResponse> orderPage = orderService
-                                        .getOrdersByKeyword(keyword, pageRequest)
-                                        .map(OrderResponse::fromOrder);
+                .getOrdersByKeyword(keyword, pageRequest)
+                .map(OrderResponse::fromOrder);
         // Lấy tổng số trang
         int totalPages = orderPage.getTotalPages();
         List<OrderResponse> orderResponses = orderPage.getContent();
-        return ResponseEntity.ok().body(ResponseObject.builder()
-                .message("Get orders successfully")
-                .status(HttpStatus.OK)
-                .data(orderResponses)
+        return ResponseEntity.ok(OrderListResponse
+                .builder()
+                .orders(orderResponses)
+                .totalPages(totalPages)
                 .build());
     }
     @PutMapping("/{id}/status")

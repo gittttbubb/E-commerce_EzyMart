@@ -44,7 +44,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     });
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories(0, 100);
-  }  
+  }
 
   constructor() {
     super();

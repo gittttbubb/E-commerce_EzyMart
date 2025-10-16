@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UserService } from '../../services/user.service';
 import { TokenService } from '../../services/token.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-chatbot',
@@ -128,7 +129,9 @@ sendMessage() {
   this.userInput = '';
   this.isTyping = true;
 
-  this.http.post<any[]>('http://localhost:5005/webhooks/rest/webhook', payload)
+  // this.http.post<any[]>('https://bot.ezymart.qzz.io/webhooks/rest/webhook', payload) //http://localhost:5005/webhooks/rest/webhook
+  
+  this.http.post<any[]>(`${environment.rasaBaseUrl}`, payload)
     .subscribe({
       next: (res) => {
         this.isTyping = false;
